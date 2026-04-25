@@ -1,0 +1,1 @@
+Prompt engineering is the practice of designing inputs that guide large language models toward better outputs.

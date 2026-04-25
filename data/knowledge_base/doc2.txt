@@ -1,0 +1,1 @@
+Retrieval-augmented generation improves answer quality by providing relevant external context before generation.
