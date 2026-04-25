@@ -91,7 +91,6 @@ python app.py
 ### Example 3
 ![Question 3](assets/question3.png)
 
-(Screenshots of these examples are included in the `/assets` folder.)
 
 ---
 
