@@ -80,26 +80,16 @@ python app.py
 
 ## Sample Interactions
 
-### Example 1
+## Sample Interactions
 
-**Input:** What is prompt engineering?
-**Output:** Prompt engineering is the practice of designing inputs that guide large language models toward better outputs.
-**Sources:** doc1.txt
-**Confidence:** 0.7
+### Example 1
+![Question 1](assets/question1.png)
 
 ### Example 2
-
-**Input:** What is retrieval-augmented generation?
-**Output:** Retrieval-augmented generation improves answer quality by using relevant external context before generating responses.
-**Sources:** doc2.txt
-**Confidence:** 0.7
+![Question 2](assets/question2.png)
 
 ### Example 3
-
-**Input:** How can AI systems be more reliable?
-**Output:** AI systems can be improved through testing, validation, logging, and guardrails.
-**Sources:** doc3.txt
-**Confidence:** 0.7
+![Question 3](assets/question3.png)
 
 (Screenshots of these examples are included in the `/assets` folder.)
 
