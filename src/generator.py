@@ -32,9 +32,10 @@ def generate_answer(question: str, retrieved_docs):
         if not answer.endswith("."):
             answer += "."
     else:
-        used_sources = [doc["source"] for doc in retrieved_docs]
-        answer = "Based on the retrieved documents, the system found relevant information but could not confidently extract a precise answer."
-
+        return {
+        "answer": "I don't have enough relevant context to answer this question.",
+        "sources": [],
+    }
     answer += f" Sources used: {', '.join(used_sources)}."
 
     return {

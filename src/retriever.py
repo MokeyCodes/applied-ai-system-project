@@ -2,6 +2,11 @@ from pathlib import Path
 
 DATA_DIR = Path("data/knowledge_base")
 
+STOPWORDS = {
+    "what", "is", "the", "a", "an", "of", "how", "can", "be",
+    "to", "and", "in", "for", "it", "this", "that", "are"
+}
+
 def load_documents():
     docs = []
     for path in DATA_DIR.glob("*.txt"):
@@ -11,11 +16,18 @@ def load_documents():
 
 def retrieve_relevant_docs(query: str, top_k: int = 2):
     docs = load_documents()
-    query_terms = set(query.lower().split())
+    query_terms = {
+        word.strip(".,?!").lower()
+        for word in query.split()
+        if word.strip(".,?!").lower() not in STOPWORDS
+    }
 
     scored = []
     for doc in docs:
-        doc_terms = set(doc["text"].lower().split())
+        doc_terms = {
+            word.strip(".,?!").lower()
+            for word in doc["text"].split()
+        }
         overlap = len(query_terms.intersection(doc_terms))
         scored.append((overlap, doc))
 
