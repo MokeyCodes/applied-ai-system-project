@@ -1,3 +1,18 @@
+# Python virtual environment
+.venv/
+
+# Environment variables
 .env
-.venv
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# Pytest cache
+.pytest_cache/
+
+# Logs (runtime outputs)
 logs/*.json
+
+# OS files (Mac)
+.DS_Store
