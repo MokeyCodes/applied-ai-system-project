@@ -149,7 +149,7 @@ This system could be misused if users assume it is always correct. To mitigate t
 
 ## Demo
 
-Loom walkthrough: 
+Loom walkthrough: https://www.loom.com/share/6b08d60d1b8a4c2786b2bb998fd7e959
 
 ---
 
