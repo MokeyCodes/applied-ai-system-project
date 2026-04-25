@@ -114,15 +114,14 @@ To ensure reliability, I implemented:
 
 * All core tests passed successfully
 * System performs well on in-scope questions
-* Performance drops when relevant context is missing
-
+* Performance drops when relevant context is missing. The system now detects out-of-scope queries more reliably and returns a fallback response instead of generating misleading answers.
 ---
 
 ## Limitations
 
 * Retrieval is keyword-based, not semantic
 * Limited knowledge base size
-* Cannot answer questions outside provided documents
+* Cannot answer questions outside provided documents, but now explicitly detects out-of-scope queries and avoids returning incorrect answers.
 
 ---
 

@@ -70,6 +70,7 @@ This system includes several reliability features:
 * **Validation logic**: checks whether sources were found
 * **Logging**: stores each run for debugging and evaluation
 * **Automated tests**: basic tests verify retrieval and validation behavior
+* **Fallback handling**: returns a safe response when no relevant context is found
 
 These features help make the system more transparent and easier to debug.
 
@@ -106,7 +107,7 @@ I used `pytest` to verify:
 
 ## 10. Observed Behavior
 
-The system performs well when the question closely matches the wording in the documents. It is fast, easy to inspect, and produces traceable outputs.
+The system performs well when the question closely matches the wording in the documents. It is fast, easy to inspect, and produces traceable outputs. The system now better detects out-of-scope queries and returns a fallback response instead of generating unrelated answers.
 
 It performs less well when:
 
@@ -123,6 +124,7 @@ This system has several limitations:
 * It may miss relevant information if the question uses different wording
 * It cannot reason deeply beyond the retrieved content
 * Because the knowledge base is small, coverage is very limited
+* It may still fail when relevant concepts are phrased very differently from the stored documents, even after improving keyword filtering.
 
 A broader limitation is that users may trust confident-sounding answers too easily, even when the system only has partial context.
 
