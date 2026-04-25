@@ -1,9 +1,3 @@
-import os
-from openai import OpenAI
-from src.prompts import SYSTEM_PROMPT, build_user_prompt
-
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-
 def generate_answer(question: str, retrieved_docs):
     if not retrieved_docs:
         return {
@@ -11,20 +5,39 @@ def generate_answer(question: str, retrieved_docs):
             "sources": [],
         }
 
-    context = "\n\n".join(
-        [f"Source: {doc['source']}\n{doc['text']}" for doc in retrieved_docs]
-    )
+    question_lower = question.lower()
 
-    response = client.chat.completions.create(
-        model="gpt-4.1-mini",
-        messages=[
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": build_user_prompt(question, context)},
-        ],
-        temperature=0.2,
-    )
+    matched_chunks = []
+    for doc in retrieved_docs:
+        sentences = doc["text"].split(".")
+        for sentence in sentences:
+            sentence = sentence.strip()
+            if not sentence:
+                continue
+
+            overlap = sum(
+                1 for word in question_lower.split()
+                if word in sentence.lower()
+            )
+            if overlap > 0:
+                matched_chunks.append((overlap, sentence, doc["source"]))
+
+    matched_chunks.sort(key=lambda x: x[0], reverse=True)
+
+    if matched_chunks:
+        best_sentences = matched_chunks[:2]
+        answer_parts = [item[1] for item in best_sentences]
+        used_sources = list(dict.fromkeys(item[2] for item in best_sentences))
+        answer = ". ".join(answer_parts).strip()
+        if not answer.endswith("."):
+            answer += "."
+    else:
+        used_sources = [doc["source"] for doc in retrieved_docs]
+        answer = "Based on the retrieved documents, the system found relevant information but could not confidently extract a precise answer."
+
+    answer += f" Sources used: {', '.join(used_sources)}."
 
     return {
-        "answer": response.choices[0].message.content,
-        "sources": [doc["source"] for doc in retrieved_docs],
+        "answer": answer,
+        "sources": used_sources,
     }
